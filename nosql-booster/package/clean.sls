@@ -8,9 +8,11 @@
 
 include:
   - {{ sls_config_clean }}
+{%- if grains.kernel == "Linux" %}
+  - nosql-booster.package.lin_clean
+{%- elif grains.kernel == "Windows" %}
+  - nosql-booster.package.win_clean
+{%- endif %}
 
-nosql-booster-package-clean-pkg-removed:
-  pkg.removed:
-    - name: {{ nosql_booster.pkg.name }}
-    - require:
-      - sls: {{ sls_config_clean }}
+Avoid being a null-router (package/clean) - NoSQL Booster:
+  test.nop: []

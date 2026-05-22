@@ -9,20 +9,11 @@
 
 include:
   - {{ sls_package_install }}
+{%- if grains.kernel == "Linux" %}
+  - nosql-boster.config.lin_file
+{%- elif grains.kernel == "Windows" %}
+  - nosql-boster.config.win_file
+{%- endif %}
 
-nosql-booster-config-file-file-managed:
-  file.managed:
-    - name: {{ nosql_booster.config }}
-    - source: {{ files_switch(['example.tmpl'],
-                              lookup='nosql-booster-config-file-file-managed'
-                 )
-              }}
-    - mode: 644
-    - user: root
-    - group: {{ nosql_booster.rootgroup }}
-    - makedirs: True
-    - template: jinja
-    - require:
-      - sls: {{ sls_package_install }}
-    - context:
-        nosql_booster: {{ nosql_booster | json }}
+Avoid being a null-router (config/file) - NoSQL Booster:
+  test.nop: []

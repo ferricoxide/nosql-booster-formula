@@ -7,10 +7,11 @@
 {%- from tplroot ~ "/map.jinja" import mapdata as nosql_booster with context %}
 
 include:
-  - {{ sls_service_clean }}
+{%- if grains.kernel == "Linux" %}
+  - nosql-booster.config.lin_clean
+{%- elif grains.kernel == "Windows" %}
+  - nosql-booster.config.win_clean
+{%- endif %}
 
-nosql-booster-config-clean-file-absent:
-  file.absent:
-    - name: {{ nosql_booster.config }}
-    - require:
-      - sls: {{ sls_service_clean }}
+Avoid being a null-router (config/clean) - NoSQL Booster:
+  test.nop: []
