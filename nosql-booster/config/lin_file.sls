@@ -7,64 +7,65 @@
 {%- from tplroot ~ "/map.jinja" import mapdata as nosql_booster with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
-Ensure NoSQL Booster Contents are Readable:
-  file.directory:
-    - dir_mode: 755
-    - file_mode: 644
-    - group: root
-    - name: '{{ nosql_booster.config.install_root }}'
-    - recurse:
-      - user
-      - group
-      - mode
-    - require:
-      - sls: {{ sls_package_install }}
-    - user: root
-
 Ensure NoSQL Booster Binary is Executable:
   file.managed:
-    - mode: 755
+    - mode: '755'
     - name: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
     - replace: False
     - require:
-      - file: Ensure NoSQL Booster Contents are Readable
+      - file: 'Ensure NoSQL Booster Contents are Readable'
+
+Ensure NoSQL Booster Contents are Readable:
+  file.directory:
+    - dir_mode: '755'
+    - file_mode: '644'
+    - group: 'root'
+    - name: '{{ nosql_booster.config.install_root }}'
+    - recurse:
+      - 'group'
+      - 'mode'
+      - 'user'
+    - require:
+      - sls: '{{ sls_package_install }}'
+    - user: 'root'
 
 NoSQL Booster Desktop Entry:
   file.managed:
     - context:
-        install_root: {{ nosql_booster.config.install_root }}
-    - group: root
-    - mode: 644
-    - name: /usr/share/applications/nosqlbooster.desktop
+        install_root: '{{ nosql_booster.config.install_root }}'
+    - group: 'root'
+    - mode: '644'
+    - name: '/usr/share/applications/nosqlbooster.desktop'
     - require:
-      - sls: {{ sls_package_install }}
-    - source: {{ files_switch(['nosqlbooster.desktop.jinja'], lookup='NoSQL Booster Desktop Entry') }}
-    - template: jinja
-    - user: root
+      - sls: '{{ sls_package_install }}'
+    - source: {{ files_switch(
+          ["nosqlbooster.desktop.jinja"],
+          lookup="NoSQL Booster Desktop Entry"
+        ) }}
+    - template: 'jinja'
+    - user: 'root'
 
-Set NoSQL Booster Directory SELinux Context:
-  selinux.fcontext_policy_present:
-    - name: '{{ nosql_booster.config.install_root }}(/.*)?'
+Restore NoSQL Booster Context:
+  cmd.run:
+    - name: '/sbin/restorecon -R "{{ nosql_booster.config.install_root }}"'
+    - onchanges:
+      - selinux: 'Set NoSQL Booster Binary SELinux Context'
+      - selinux: 'Set NoSQL Booster Directory SELinux Context'
     - require:
-      - sls: {{ sls_package_install }}
-    - sel_type: usr_t
+      - selinux: 'Set NoSQL Booster Binary SELinux Context'
+      - selinux: 'Set NoSQL Booster Directory SELinux Context'
+      - sls: '{{ sls_package_install }}'
 
 Set NoSQL Booster Binary SELinux Context:
   selinux.fcontext_policy_present:
     - name: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
     - require:
-      - sls: {{ sls_package_install }}
-    - sel_type: bin_t
+      - sls: '{{ sls_package_install }}'
+    - sel_type: 'bin_t'
 
-Restore NoSQL Booster Context:
-  module.run:
-    - onchanges:
-      - selinux: Set NoSQL Booster Directory SELinux Context
-      - selinux: Set NoSQL Booster Binary SELinux Context
+Set NoSQL Booster Directory SELinux Context:
+  selinux.fcontext_policy_present:
+    - name: '{{ nosql_booster.config.install_root }}(/.*)?'
     - require:
-      - selinux: Set NoSQL Booster Directory SELinux Context
-      - selinux: Set NoSQL Booster Binary SELinux Context
-      - sls: {{ sls_package_install }}
-    - selinux.restorecon:
-      - path: '{{ nosql_booster.config.install_root }}'
-      - recursive: True  # Changed to True to cover the directory policy
+      - sls: '{{ sls_package_install }}'
+    - sel_type: 'usr_t'
