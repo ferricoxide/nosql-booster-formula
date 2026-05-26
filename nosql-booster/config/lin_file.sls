@@ -21,6 +21,14 @@ Ensure NoSQL Booster Contents are Readable:
       - sls: {{ sls_package_install }}
     - user: root
 
+Ensure NoSQL Booster Binary is Executable:
+  file.managed:
+    - mode: 755
+    - name: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
+    - replace: False
+    - require:
+      - file: Ensure NoSQL Booster Contents are Readable
+
 NoSQL Booster Desktop Entry:
   file.managed:
     - context:
