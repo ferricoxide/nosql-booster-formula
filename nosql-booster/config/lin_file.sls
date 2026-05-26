@@ -44,6 +44,13 @@ Restore NoSQL Booster Context:
       - path: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
       - recursive: False
 
+Set NoSQL Booster Directory SELinux Context:
+  selinux.fcontext_policy_present:
+    - name: '{{ nosql_booster.config.install_root }}(/.*)?'
+    - sel_type: usr_t  # General type for /opt software
+    - require:
+      - sls: {{ sls_package_install }}
+
 Set NoSQL Booster SELinux Context:
   selinux.fcontext_policy_present:
     - name: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
