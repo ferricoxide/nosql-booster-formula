@@ -88,10 +88,15 @@ User binary wrapper:
         # Launch NoSQL Booster utility while suppressing spurious warnings
         #
         ######################################################################
-        export APPIMAGE=''
-        export ELECTRON_DISABLE_SECURITY_WARNINGS='true'
+        export DOTENV_CONFIG_QUIET='true'
+        export DOTENV_QUIET='true'
         export NODE_ENV='production'
-        exec '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo' "$@"
+        exec '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo' \
+          --no-sandbox "$@" 2> >(
+            grep -v 'APPIMAGE env is not defined' >&2
+          )
+
+
     - mode: '0755'
     - name: '/usr/local/bin/nosqlbooster'
     - require:
