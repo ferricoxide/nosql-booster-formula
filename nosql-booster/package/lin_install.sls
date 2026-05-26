@@ -84,7 +84,11 @@ User binary wrapper:
   file.managed:
     - contents: |
         #!/bin/bash
-        export APPIMAGE='true'
+        #
+        # Launch NoSQL Booster utility while suppressing spurious warnings
+        #
+        ######################################################################
+        export APPIMAGE=''
         export ELECTRON_DISABLE_SECURITY_WARNINGS='true'
         export NODE_ENV='production'
         exec '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo' "$@"
