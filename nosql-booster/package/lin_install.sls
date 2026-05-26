@@ -80,11 +80,16 @@ Install NoSQL Booster:
     - skip_verify: True
     {%- endif %}
 
-User symlink:
-  file.symlink:
-    - force: True
+User binary wrapper:
+  file.managed:
+    - contents: |
+        #!/bin/bash
+        export APPIMAGE='true'
+        export ELECTRON_DISABLE_SECURITY_WARNINGS='true'
+        export NODE_ENV='production'
+        exec '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo' "$@"
+    - mode: '0755'
     - name: '/usr/local/bin/nosqlbooster'
     - require:
       - archive: 'Install NoSQL Booster'
-    - target: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
 {%- endif %}
