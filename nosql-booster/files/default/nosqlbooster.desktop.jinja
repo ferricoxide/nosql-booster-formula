@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=NoSQL Booster
 Comment=GUI Tool and IDE for MongoDB
-Exec={{ install_root }}/nosqlbooster4mongo
-# You may need to verify the icon path inside the extracted folder
+# Point to the wrapper script instead of the raw binary
+Exec=/usr/local/bin/nosqlbooster
 Icon={{ install_root }}/resources/app/public/img/logo.png
 Terminal=false
 Type=Application
