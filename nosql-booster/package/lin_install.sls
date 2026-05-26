@@ -5,6 +5,23 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as nosql_booster with context %}
 
+{%- if not nosql_booster.pkg.download_uri %}
+NoSQL Booster download URL is missing:
+  test.fail_without_changes:
+    - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
+    - comment: |
+        --------------------------------------------------
+        The vendor URL is subject to change and no
+        fallback mechanism is currently able to be
+        implemented. Therefore, The NoSQL Booster download
+        URL *must* be provided via Pillar. Please check:
+
+          https://nosqlbooster.com/downloads
+
+        For valid download URLs.
+        --------------------------------------------------
+{%- else %}
+
 Ensure NoSQL Booster Install-root:
   file.directory:
     - name: '{{ nosql_booster.config.install_root }}'
@@ -52,7 +69,8 @@ Install NoSQL Booster:
 User symlink:
   file.symlink:
     - name: '/usr/local/bin/nosqlbooster'
-    - target: /opt/nosqlbooster/nosqlbooster4mongo
+    - target: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
     - force: True
     - require:
       - archive: 'Install NoSQL Booster'
+{%- endif %}
