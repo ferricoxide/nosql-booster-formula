@@ -16,5 +16,6 @@ values:
     name: ''
     download_uri: ''
     download_sig: ''
-  config: {}
+  config:
+    install_root: '/opt/nosqlbooster'
 ...
