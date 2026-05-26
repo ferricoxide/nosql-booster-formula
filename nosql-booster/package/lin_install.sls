@@ -38,9 +38,11 @@ Install NoSQL Booster Dependencies:
       - at-spi2-atk
       - atk
       - cups-libs
+      - dbus-glib
       - dejavu-sans-fonts
       - gtk3
       - libX11
+      - libX11-xcb
       - libXScrnSaver
       - libXcomposite
       - libXcursor
@@ -52,9 +54,16 @@ Install NoSQL Booster Dependencies:
       - libXrender
       - libXtst
       - libdrm
+      - libsecret
+      - libva
+      - libxkbcommon
+      - libxshmfence
       - mesa-libgbm
       - nss
+      - nss-tools
       - pango
+      - vulkan-loader
+      - xorg-x11-xauth
 
 Install NoSQL Booster:
   archive.extracted:
