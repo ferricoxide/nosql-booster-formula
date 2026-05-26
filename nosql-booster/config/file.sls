@@ -10,9 +10,9 @@
 include:
   - {{ sls_package_install }}
 {%- if grains.kernel == "Linux" %}
-  - nosql-boster.config.lin_file
+  - nosql-booster.config.lin_file
 {%- elif grains.kernel == "Windows" %}
-  - nosql-boster.config.win_file
+  - nosql-booster.config.win_file
 {%- endif %}
 
 Avoid being a null-router (config/file) - NoSQL Booster:
