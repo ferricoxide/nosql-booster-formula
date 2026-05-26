@@ -29,6 +29,17 @@ Ensure NoSQL Booster Contents are Readable:
       - sls: '{{ sls_package_install }}'
     - user: 'root'
 
+{%- if nosql_booster.config.license_string %}
+file.managed:
+    - contents: '{{ nosql_booster.config.license_string }}'
+    - group: 'root'
+    - makedirs: True
+    - name: '/etc/skel/.config/nosqlbooster4mongo/license.key'
+    - require:
+      - file: 'Ensure NoSQL Booster Contents are Readable'
+    - user: 'root'
+{%- endif %}
+
 NoSQL Booster Desktop Entry:
   file.managed:
     - context:
