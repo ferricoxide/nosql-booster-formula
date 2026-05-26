@@ -34,26 +34,29 @@ NoSQL Booster Desktop Entry:
     - template: jinja
     - user: root
 
-Restore NoSQL Booster Context:
-  module.run:
-      - selinux: Set NoSQL Booster SELinux Context
-    - require:
-      - selinux: Set NoSQL Booster SELinux Context
-      - sls: {{ sls_package_install }}
-    - selinux.restorecon:
-      - path: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
-      - recursive: False
-
 Set NoSQL Booster Directory SELinux Context:
   selinux.fcontext_policy_present:
     - name: '{{ nosql_booster.config.install_root }}(/.*)?'
-    - sel_type: usr_t  # General type for /opt software
     - require:
       - sls: {{ sls_package_install }}
+    - sel_type: usr_t
 
-Set NoSQL Booster SELinux Context:
+Set NoSQL Booster Binary SELinux Context:
   selinux.fcontext_policy_present:
     - name: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
     - require:
       - sls: {{ sls_package_install }}
     - sel_type: bin_t
+
+Restore NoSQL Booster Context:
+  module.run:
+    - onchanges:
+      - selinux: Set NoSQL Booster Directory SELinux Context
+      - selinux: Set NoSQL Booster Binary SELinux Context
+    - require:
+      - selinux: Set NoSQL Booster Directory SELinux Context
+      - selinux: Set NoSQL Booster Binary SELinux Context
+      - sls: {{ sls_package_install }}
+    - selinux.restorecon:
+      - path: '{{ nosql_booster.config.install_root }}'
+      - recursive: True  # Changed to True to cover the directory policy
