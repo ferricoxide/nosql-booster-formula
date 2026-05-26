@@ -8,27 +8,28 @@
 {%- if not nosql_booster.pkg.download_uri %}
 NoSQL Booster download URL is missing:
   test.fail_without_changes:
-    - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
     - comment: |
         --------------------------------------------------
         The vendor URL is subject to change and no
         fallback mechanism is currently able to be
-        implemented. Therefore, The NoSQL Booster download
-        URL *must* be provided via Pillar. Please check:
+        implemented. Therefore, a valid NoSQL Booster
+        download URL *must* be provided via Pillar. If not
+        self-hosting, please check:
 
           https://nosqlbooster.com/downloads
 
         For valid download URLs.
         --------------------------------------------------
+    - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
 {%- else %}
 
 Ensure NoSQL Booster Install-root:
   file.directory:
+    - group: root
+    - makedirs: True
+    - mode: 755
     - name: '{{ nosql_booster.config.install_root }}'
     - user: root
-    - group: root
-    - mode: 755
-    - makedirs: True
 
 Install NoSQL Booster Dependencies:
   pkg.installed:
@@ -64,13 +65,17 @@ Install NoSQL Booster:
       - file: 'Ensure NoSQL Booster Install-root'
     - skip_verify: True
     - source: '{{ nosql_booster.pkg.download_uri }}'
+    {%- if nosql_booster.pkg.download_sig %}
     - source_hash: '{{ nosql_booster.pkg.download_sig }}'
+    {%- else %}
+    - skip_verify: True
+    {%- endif %}
 
 User symlink:
   file.symlink:
-    - name: '/usr/local/bin/nosqlbooster'
-    - target: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
     - force: True
+    - name: '/usr/local/bin/nosqlbooster'
     - require:
       - archive: 'Install NoSQL Booster'
+    - target: '{{ nosql_booster.config.install_root }}/nosqlbooster4mongo'
 {%- endif %}
