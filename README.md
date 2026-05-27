@@ -60,6 +60,10 @@ Executes _just_ the `config` state to uninstall the NoSQL Boster IDE for MongoDB
 2.  A successful launch on a freshely-built instance will produce a window like:
     <img src="/docs/images/NoSQLBooster-SplashPage-RHEL9.png">
 
+### Windows:
+
+1.  Due to peculiarities in the Windows setup/installer EXE, it was necessary to work around those issues by leveraging filesystem-junctions. The use of filesystem-junctions ensure that the installer places files in the desired directory (default: `C:\Program Files\NoSQLBooster`; see [`.../default.yaml`](nosql-booster/parameters/defaults.yaml) or [`pillar.example`](pillar.example) for more information) for override-options). However, the result of this workaround is that registry-entries need to be modified after the setup/installer EXE finishes its execution. This adds the further requirement that a site's Pillar payload need also include an associated GUID for the requested installer-download.
+
 
 [^1]: As of this README's writing, only Enterprise Linux and related distros (Red Hat and Oracle Enterprise, CentOS Stream, Rocky and Alma Linux). It has only been specifically tested with EL **_9_** variants.
 [^2]: As of this README's writing, this functionality has only been tested on Windows Server 2022
