@@ -57,7 +57,7 @@ NoSQL Booster Desktop Entry:
     - template: 'jinja'
     - user: 'root'
 
-{%- if grains.get('selinux:enabled', False) %}
+{%- if grains.get('selinux', {}).get('enabled', False) %}
 Restore NoSQL Booster Context:
   cmd.run:
     - name: '/sbin/restorecon -R "{{ nosql_booster.config.install_root }}"'
