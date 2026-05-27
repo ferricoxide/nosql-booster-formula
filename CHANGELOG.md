@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 0.1.0
+
+**Released**: 2026.05.27
+
+**Summary**:
+
+*   Adds Linux functionality:
+    *   Installs the NoSQLBooster binary (as downloaded from [vendor site](https://nosqlbooster.com/downloads))
+    *   Creates a wrapper-script at `/usr/local/bin/nosqlbooster`
+    *   Sets appropriate file-modes and SELinux contexts on binaries and wrappers
+    *   Installs any license-files (specified via Pillar) into `/etc/skel/.config/nosqlbooster4mongo/license.key` (so that subsequently-created users get it populated into their `${HOME}/config/nosqlbooster4mongo/` directory
+    *   Implements "cleanup" for all of the preceeding
+*   Adds pillar.example to explain parameters/inputs that may be specified via Pillar
+*   Update README with platform-notes - includes (LFS-hosted) illustration
+
 ### 0.0.1
 
 **Released**: 2026.05.22
