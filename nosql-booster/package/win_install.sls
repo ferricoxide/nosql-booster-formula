@@ -15,6 +15,19 @@ NoSQL Booster download URL is missing:
     - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
 
 {%- else %}
+Cleanup Installation Junction:
+  cmd.run:
+    - name: 'rmdir {{ junction }}'
+    - onchanges:
+      - cmd: 'Install NoSQL Booster'
+
+Create Installation Junction:
+  cmd.run:
+    - name: 'mklink /J {{ junction }} "{{ nosql_booster.config.install_root }}"'
+    - onchanges:
+      - file: 'Download NoSQL Booster Installer-EXE'
+    - unless: 'if exist {{ junction }} (exit 0) else (exit 1)'
+
 Download NoSQL Booster Installer-EXE:
   file.managed:
     - name: '{{ installer_exe }}'
@@ -25,15 +38,18 @@ Download NoSQL Booster Installer-EXE:
     - skip_verify: True
     {%- endif %}
 
+Ensure NoSQL Booster Install Directory:
+  file.directory:
+    - makedirs: True
+    - name: '{{ nosql_booster.config.install_root }}'
+
 Install NoSQL Booster:
   cmd.run:
-    - name: >
-        Start-Process
-        -FilePath "{{ installer_exe }}"
-        -ArgumentList "/S", "/allusers",
-        "/D={{ nosql_booster.config.install_root }}"
-        -Wait
+    - creates: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
+    - name: 'start /wait "" "{{ installer_exe }}" /S /allusers /D={{ junction }}'
     - onchanges:
-      - file: 'Download NoSQL Booster Installer-EXE'
-    - shell: powershell
+      - cmd: 'Create Installation Junction'
+    - require:
+      - cmd: 'Create Installation Junction'
 {%- endif %}
+
