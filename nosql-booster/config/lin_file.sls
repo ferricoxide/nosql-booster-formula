@@ -31,7 +31,7 @@ Ensure NoSQL Booster Contents are Readable:
 
 {%- if nosql_booster.config.get('license_string') %}
 Install Pillar-Supplied License-String:
-file.managed:
+  file.managed:
     - contents: '{{ nosql_booster.config.license_string }}'
     - group: 'root'
     - makedirs: True
