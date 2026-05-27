@@ -21,6 +21,15 @@ NoSQL Booster download URL is missing:
         For valid download URLs.
         --------------------------------------------------
     - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
+{%- elif not nosql_booster.config.install_root %}
+NoSQL Booster installation root is missing:
+  test.fail_without_changes:
+    - comment: |
+        --------------------------------------------------
+        CRITICAL: the 'install_root' not defined for this
+        platform ({{ grains.os_family }})
+        --------------------------------------------------
+    - name: "CRITICAL: 'nosql_booster:config:install_root' is not defined."
 {%- else %}
 
 Ensure NoSQL Booster Install-root:
