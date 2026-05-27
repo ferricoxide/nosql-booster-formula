@@ -19,6 +19,7 @@ values:
       For valid download URLs.
       --------------------------------------------------
     name: ''
+    reg_guid: ''
   config:
     install_root: ''
     installed_version: ''

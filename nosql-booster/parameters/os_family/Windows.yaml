@@ -10,6 +10,7 @@ values:
     download_sig: ''
     download_uri: ''
     name: 'NoSQLBooster for MongoDB'
+    reg_guid: ''
   config:
     install_root: 'C:\Program Files\NoSQLBooster'
     installed_version: ''

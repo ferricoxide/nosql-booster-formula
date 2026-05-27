@@ -3,8 +3,9 @@ nosql-booster:
     config:           # Configuration-related parameters
       install_root:   # (Optional) A string describing a fully-qualified
                       # directory-path in which the downloaded binary-archive
-                      # should be installed to. Defualts:
+                      # should be installed to. Defaults:
                       #   * RHEL: '/opt/nosqlbooster'
+                      #   * Windows: 'C:\Program Files\NoSQLBooster'
                       #
       license_string: # (Optional) An ASCII string that, if present, activates
                       # the installation as a paid-tier version. See vendor's
@@ -32,3 +33,11 @@ nosql-booster:
                       #      awk '{ print "sha256=" $1 }'
                       #
                       # Then set the value to the emitted string-value
+                      #
+      reg_guid:       # (REQUIRED: Windows-only) The ProductCode GUID for the
+                      # specific installer version. This is required to 
+                      # perform registry corrections for the uninstaller 
+                      # due to path-parsing limitations in the installer.
+                      #
+                      # For v10.1.7: '{227bc20d-e19b-5c52-9f1d-31ef30b24843}'
+                      #
