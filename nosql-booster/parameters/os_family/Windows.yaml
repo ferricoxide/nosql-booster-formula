@@ -2,21 +2,15 @@
 # vim: ft=yaml
 #
 # Set values specific to:
-#   salt['config.get']('os_family') == RedHat.
-#
-# You just need to add the key:values for this `os_family` that differ
-# from `defaults.yaml` + `<osarch>.yaml`.
-#
-# If you do not need to provide defaults via the `os_family` config,
-# you can remove this file or provide at least an empty dict, e.g.
-# values: {}
+#   salt['config.get']('os_family') == Windows.
 ---
 values:
   pkg:
-    name: ''
-    download_uri: ''
-    download_sig: ''
     download_save_dir: 'C:\Windows\TEMP'
+    download_sig: ''
+    download_uri: ''
+    name: 'NoSQLBooster for MongoDB'
   config:
-    install_root: 'C:\Program Files\NoSQL Booster'
+    install_root: 'C:\Program Files\NoSQLBooster'
+    installed_version: ''
 ...
