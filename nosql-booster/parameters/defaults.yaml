@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-#
-# Set default values.
 ---
 values:
   pkg:
-    name: ''
-    download_uri: ''
+    download_save_dir: ''
     download_sig: ''
+    download_uri: ''
+    name: ''
   config:
     install_root: ''
     license_string: ''
