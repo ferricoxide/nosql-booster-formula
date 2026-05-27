@@ -29,7 +29,8 @@ Ensure NoSQL Booster Contents are Readable:
       - sls: '{{ sls_package_install }}'
     - user: 'root'
 
-{%- if nosql_booster.config.license_string %}
+{%- if nosql_booster.config.get('license_string') %}
+Install Pillar-Supplied License-String:
 file.managed:
     - contents: '{{ nosql_booster.config.license_string }}'
     - group: 'root'
