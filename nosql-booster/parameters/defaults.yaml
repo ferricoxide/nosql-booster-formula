@@ -5,14 +5,10 @@
 ---
 values:
   pkg:
-    name: nosql-booster
-  rootgroup: root
-  config: '/etc/nosql-booster'
-  service:
-    name: nosql-booster
-  subcomponent:
-    config: '/etc/nosql-booster-subcomponent-formula.conf'
-  # Just here for testing
-  added_in_defaults: defaults_value
-  winner: defaults
+    name: ''
+    download_uri: ''
+    download_sig: ''
+  config:
+    install_root: ''
+    license_string: ''
 ...

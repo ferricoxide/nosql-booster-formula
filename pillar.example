@@ -1,0 +1,34 @@
+nosql-booster:
+  lookup:
+    config:           # Configuration-related parameters
+      install_root:   # (Optional) A string describing a fully-qualified
+                      # directory-path in which the downloaded binary-archive
+                      # should be installed to. Defualts:
+                      #   * RHEL: '/opt/nosqlbooster'
+                      #
+      license_string: # (Optional) An ASCII string that, if present, activates
+                      # the installation as a paid-tier version. See vendor's
+                      # license-order page at:
+                      #
+                      #   https://nosqlbooster.com/purchase
+                      #
+    pkg:              # Package-related parameters
+      name:           # (Optional: UNUSED) A string that maps to the name of
+                      # the installed binary-package
+                      #
+      download_uri:   # (REQUIRED) A string defining the URI from which the
+                      # installation-archive should be installed. If left
+                      # null, the formula will error-exit. See the vendor's
+                      # "downloads" page at:
+                      #
+                      #   https://nosqlbooster.com/downloads
+                      #
+      download_sig:   # (OPTIONAL) A string defining a check-sum value used to
+                      # verify that the dowloaded file has not been tampered
+                      # with. The vendor does not currently provide signature
+                      # files. To generate one, execute:
+                      #
+                      #   curl -L <VENDOR_DOWNLOAD_URL> | sha256sum | \
+                      #      awk '{ print "sha256=" $1 }'
+                      #
+                      # Then set the value to the emitted string-value

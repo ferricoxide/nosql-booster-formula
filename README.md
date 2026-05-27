@@ -48,6 +48,18 @@ Executes _just_ the `config` state to uninstall the NoSQL Boster IDE for MongoDB
 
 ## Compatibility Notes:
 
+### Linux:
+
+1.  When launching from a terminal session's interactive shell, the `nosqlbooster` command may emit informational messages like:
+    ```bash
+    $ nosqlbooster
+    (node:1838) electron: The default of contextIsolation is deprecated and will be changing from false to true in a future release of Electron.  See https://github.com/electron/electron/issues/23506 for more information
+    $
+    ```
+    These are generally innocuous
+2.  A successful launch on a freshely-built instance will produce a window like:
+    <img src="/docs/images/NoSQLBooster-SplashPage-RHEL9.png">
+
 
 [^1]: As of this README's writing, only Enterprise Linux and related distros (Red Hat and Oracle Enterprise, CentOS Stream, Rocky and Alma Linux). It has only been specifically tested with EL **_9_** variants.
 [^2]: As of this README's writing, this functionality has only been tested on Windows Server 2022

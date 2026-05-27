@@ -13,6 +13,9 @@
 ---
 values:
   pkg:
-    name: nosql-booster-redhat
-  config: /etc/nosql-booster.conf
+    name: ''
+    download_uri: ''
+    download_sig: ''
+  config:
+    install_root: '/opt/nosqlbooster'
 ...
