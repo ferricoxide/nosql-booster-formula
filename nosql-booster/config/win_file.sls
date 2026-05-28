@@ -25,7 +25,7 @@ Install Pillar-Supplied License-String:
 {%- endif %}
 
 NoSQL Booster Desktop Shortcut:
-  file.shortcut:
+  shortcut.present:
     - icon_location: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
     - name: 'C:\Users\Public\Desktop\NoSQLBooster for MongoDB.lnk'
     - require:
@@ -34,13 +34,13 @@ NoSQL Booster Desktop Shortcut:
     - working_dir: '{{ nosql_booster.config.install_root }}'
 
 NoSQL Booster Start Menu Shortcut:
-  file.shortcut:
+  shortcut.present:
     - icon_location: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
     - makedirs: True
     - name: 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NoSQLBooster for MongoDB.lnk'
     - require:
       - cmd: 'Install NoSQL Booster'
-      - file: 'NoSQL Booster Desktop Shortcut'
+      - shortcut: 'NoSQL Booster Desktop Shortcut'
     - target: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
     - working_dir: '{{ nosql_booster.config.install_root }}'
 
@@ -49,4 +49,4 @@ NoSQL Booster System Path Update:
     - name: '{{ nosql_booster.config.install_root }}'
     - require:
       - cmd: 'Install NoSQL Booster'
-      - file: 'NoSQL Booster Desktop Shortcut'
+      - shortcut: 'NoSQL Booster Start Menu Shortcut'
