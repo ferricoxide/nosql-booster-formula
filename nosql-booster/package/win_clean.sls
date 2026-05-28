@@ -16,16 +16,16 @@
 
 Cleanup Uninstallation Junction:
   cmd.run:
-    - name: 'Start-Sleep -Seconds 5; if (Test-Path "{{ junction }}") { rmdir {{ junction }} }'
-    - onlyif: 'test-path {{ junction }}'
+    - name: 'Start-Sleep -Seconds 5; if (Test-Path "{{ junction }}") { Remove-Item -Path "{{ junction }}" -Force }'
+    - onlyif: 'Test-Path "{{ junction }}"'
     - require:
       - cmd: 'Run NoSQL Booster Uninstaller'
     - shell: powershell
 
 Create Uninstallation Junction:
   cmd.run:
-    - name: 'mklink /J {{ junction }} "{{ install_root }}"'
-    - onlyif: 'test-path "{{ install_root }}"'
+    - name: 'New-Item -ItemType Junction -Path "{{ junction }}" -Value "{{ install_root }}"'
+    - onlyif: 'Test-Path "{{ install_root }}"'
     - require:
       - cmd: 'Kill Running NoSQL Booster Instances'
     - shell: powershell
@@ -51,7 +51,8 @@ NoSQL Booster Registry Removal:
 
 Run NoSQL Booster Uninstaller:
   cmd.run:
-    - name: 'start /wait "" "{{ uninstaller }}" /S /allusers'
-    - onlyif: 'test-path "{{ uninstaller }}"'
+    - name: 'Start-Process -FilePath "{{ uninstaller }}" -ArgumentList "/S", "/allusers" -Wait'
+    - onlyif: 'Test-Path "{{ uninstaller }}"'
     - require:
       - cmd: 'Create Uninstallation Junction'
+    - shell: powershell
