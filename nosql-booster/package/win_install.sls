@@ -8,17 +8,16 @@
     '\\nosqlbooster-setup.exe'
 %}
 {%- set junction = 'C:\\nosql_install_temp' %}
-{%- set reg_key = 'HKEY_USERS\\S-1-5-18\\Software\\Microsoft\\Windows\\CurrentVersion' ~
-    '\\Uninstall\\' ~ nosql_booster.pkg.reg_guid
+{%- set reg_key = 'HKEY_USERS\\S-1-5-18\\Software\\Microsoft\\Windows\\' ~
+    'CurrentVersion\\Uninstall\\' ~ nosql_booster.pkg.reg_guid
 %}
 
 {%- if not nosql_booster.pkg.download_uri %}
 NoSQL Booster download URL is missing:
   test.fail_without_changes:
     - comment: |
-{{ nosql_booster.pkg.download_uri_error | indent(8, True) }}
+        {{ nosql_booster.pkg.download_uri_error | indent(8, True) }}
     - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
-
 {%- elif not nosql_booster.pkg.reg_guid %}
 NoSQL Booster registry GUID is missing:
   test.fail_without_changes:
@@ -30,7 +29,6 @@ NoSQL Booster registry GUID is missing:
         uninstaller functionality.
         --------------------------------------------------
     - name: "CRITICAL: Registry ProductCode GUID is not defined."
-
 {%- else %}
 Avoid being a null-router (package/win_install) - NoSQL Booster:
   test.nop: []
