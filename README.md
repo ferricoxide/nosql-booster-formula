@@ -96,8 +96,42 @@ Executes _just_ the `config` state to uninstall the NoSQL Boster IDE for MongoDB
             ```
 
     The target GUID-value is in the `PSChildName` column. This will be the value to set for the site's Pillar's `nosql-booster:lookup:pkg:reg_guid` parameter.
+1.  The automation will update the system's `PATH` env, add a launcher-icon on _new_ users[^4] desktops and add a launcher-icon to the system's `Start` menu
 
 
 [^1]: As of this README's writing, only Enterprise Linux and related distros (Red Hat and Oracle Enterprise, CentOS Stream, Rocky and Alma Linux). It has only been specifically tested with EL **_9_** variants.
 [^2]: As of this README's writing, this functionality has only been tested on Windows Server 2022
 [^3]: The `nosql-booster:lookup:pkg:download_uri` and `nosql-booster:lookup:pkg:download_sig` are per-platform values. Ensure that the site's Pillar-file uses platform-keyed entries.
+[^4]: It's anticipated that this automation will be run _prior_ to the creations of application-users. Any users created before this formula is run may not receive the mentioned icon-updates. If any such users need and are missing these icons, their absence can be fixed by running a short PowerShell script like:
+    ```
+    # Define targeted users
+    $targetUsers = @("<USER_1>", "<USER_2>", ... "<USER_N>")
+    
+    # Source paths from global locations
+    $srcD = "C:\Users\Public\Desktop\NoSQLBooster for MongoDB.lnk"
+    $srcS = "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\" +
+            "NoSQLBooster for MongoDB.lnk"
+    
+    foreach ($user in $targetUsers) {
+        $uPath = "C:\Users\$user"
+        
+        if (Test-Path $uPath) {
+            Write-Host "Processing user: $user" -ForegroundColor Cyan
+            
+            # Target Desktop
+            $dstD = Join-Path $uPath "Desktop\NoSQLBooster for MongoDB.lnk"
+            if (Test-Path $srcD) {
+                Copy-Item $srcD $dstD -Force -ErrorAction SilentlyContinue
+            }
+    
+            # Target Start Menu
+            $sm = "AppData\Roaming\Microsoft\Windows\Start Menu\Programs"
+            $dstS = Join-Path $uPath "$sm\NoSQLBooster for MongoDB.lnk"
+            if (Test-Path $srcS) {
+                Copy-Item $srcS $dstS -Force -ErrorAction SilentlyContinue
+            }
+        } else {
+            Write-Warning "Profile not found for user: $user"
+        }
+    }
+    ```
