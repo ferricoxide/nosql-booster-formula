@@ -86,8 +86,10 @@ Download NoSQL Booster Installer-EXE:
 
 Ensure NoSQL Booster Install Directory:
   file.directory:
+    - group: 'Administrators'
     - makedirs: True
     - name: '{{ nosql_booster.config.install_root }}'
+    - user: 'Administrators'
 
 Install NoSQL Booster:
   cmd.run:
