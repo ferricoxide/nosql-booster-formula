@@ -5,12 +5,12 @@ A SaltStack formula designed to install and configure the [NoSQL Boster IDE for 
 
 It is primarily expected that this formula will be run via [P3](https://www.plus3it.com/)'s "[watchmaker](https://watchmaker.readthedocs.io/en/stable/)" framework.
 
-This formula is able to install the NoSQL Boster IDE for MongoDB on both Linux[^1] and Windows Server[^2] operating environments. Intallation for internet-connected systems may come from the NoSQL Boster IDE for MongoDB product's ["Downloads" page](https://nosqlbooster.com/downloads). Alternately:
+This formula is able to install the NoSQL Boster IDE for MongoDB on both Linux[^1] and Windows Server[^2] operating environments. Installation for internet-connected systems may come from the NoSQL Boster IDE for MongoDB product's ["Downloads" page](https://nosqlbooster.com/downloads). Alternately:
 
 * Sites whose installation-targets won't be able to reach the NoSQL Boster IDE for MongoDB product's "Downloads" page will need to self-host copies of the desired content.
 * Sites that wish to use a specific version of the NoSQL Boster IDE for MongoDB will need to target that content
 
-Targeting specific versions of the NoSQL Boster IDE for MongoDB or local copies of the install-archives can be directed to do so by adding appropriate content to the formula's associated Pillar-data (see thish projct's [pillar.example](pillar.example) file for guidance).
+Targeting specific versions of the NoSQL Boster IDE for MongoDB or local copies of the install-archives can be directed to do so by adding appropriate content to the formula's associated Pillar-data (see this projct's [pillar.example](pillar.example) file for guidance).
 
 
 ## Available states
