@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+### 0.1.1
+
+**Released**: 2026.05.XX
+
+**Summary**:
+
+*   Adds Windows functionality:
+    *   Uses the NoSQLBooster setup EXE to install the binaries (Pillar-overridable default is `C:\Program Files\NoSQLBooster)
+    *   Sets up desktop launcher-icons for each user created after the formula is run
+    *   Sets up `Start` menu launcher-icons for each user created after the formula is run
+    *   Updates the OS-wide `PATH` environment-variable to allow easy launch from a `cmd.exe` or PowerShell prompt
+    *   Installs any license-files (specified via Pillar) into `C:\Users\Default\AppData\Roaming\NoSQLBooster for MongoDB\license.key`. This _should_ ensure that users get access to the NoSQLBooster application's licensed functionalities
+*   Updates Pillar.example to explain the further, Windows-oriented parameters/inputs that may be specified via Pillar
+*   Update README with generic and platform-specific (i.e., "Windows") notes
+
 ### 0.1.0
 
 **Released**: 2026.05.27
