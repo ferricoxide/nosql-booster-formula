@@ -6,12 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### 0.1.1
 
-**Released**: 2026.05.XX
+**Released**: 2026.05.28
 
 **Summary**:
 
 *   Adds Windows functionality:
-    *   Uses the NoSQLBooster setup EXE to install the binaries (Pillar-overridable default is `C:\Program Files\NoSQLBooster)
+    *   Uses the NoSQLBooster setup EXE to install the binaries (Pillar-overridable default is `C:\Program Files\NoSQLBooster`)
     *   Sets up desktop launcher-icons for each user created after the formula is run
     *   Sets up `Start` menu launcher-icons for each user created after the formula is run
     *   Updates the OS-wide `PATH` environment-variable to allow easy launch from a `cmd.exe` or PowerShell prompt
