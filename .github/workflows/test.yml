@@ -37,7 +37,7 @@ jobs:
         salt_state:
           - nosql-booster
         salt_pillar_root:
-          - ./tests/pillar/test-nosql-booster
+          - ./tests/pillar/nosql-booster
     with:
       salt-os-version: ${{ matrix.os_version }}
       salt-state: ${{ matrix.salt_state }}
