@@ -35,9 +35,9 @@ jobs:
           - windows-2022
           - windows-2025
         salt_state:
-          - redis-insight
+          - nosql-booster
         salt_pillar_root:
-          - ./tests/pillar/test-redis-insight
+          - ./tests/pillar/test-nosql-booster
     with:
       salt-os-version: ${{ matrix.os_version }}
       salt-state: ${{ matrix.salt_state }}

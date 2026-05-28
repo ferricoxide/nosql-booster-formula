@@ -15,7 +15,8 @@
 {%- if not nosql_booster.pkg.download_uri %}
 NoSQL Booster download URL is missing:
   test.fail_without_changes:
-    - comment: {{ nosql_booster.pkg.download_uri_error | indent(8) }}
+    - comment: |
+{{ nosql_booster.pkg.download_uri_error | indent(8, True) }}
     - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
 
 {%- elif not nosql_booster.pkg.reg_guid %}
