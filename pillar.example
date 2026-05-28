@@ -35,8 +35,8 @@ nosql-booster:
                       # Then set the value to the emitted string-value
                       #
       reg_guid:       # (REQUIRED: Windows-only) The ProductCode GUID for the
-                      # specific installer version. This is required to 
-                      # perform registry corrections for the uninstaller 
+                      # specific installer version. This is required to
+                      # perform registry corrections for the uninstaller
                       # due to path-parsing limitations in the installer.
                       #
                       # For v10.1.7: '{227bc20d-e19b-5c52-9f1d-31ef30b24843}'

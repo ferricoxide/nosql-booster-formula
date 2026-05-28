@@ -81,8 +81,8 @@ Executes _just_ the `config` state to uninstall the NoSQL Boster IDE for MongoDB
     1.   Execute the following PS snippet:
 
             ```
-	        $path = "Registry::HKEY_USERS\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Uninstall"
-	        Get-ChildItem -Path $path | Get-ItemProperty |
+                $path = "Registry::HKEY_USERS\S-1-5-18\Software\Microsoft\Windows\CurrentVersion\Uninstall"
+                Get-ChildItem -Path $path | Get-ItemProperty |
                     Where-Object { $_.DisplayName -like "*NoSQLBooster*" } |
                     Select-Object DisplayName, PSChildName
             ```
@@ -90,9 +90,9 @@ Executes _just_ the `config` state to uninstall the NoSQL Boster IDE for MongoDB
     1.   The preceding will produce two, labeled columns of output like:
 
             ```
-	        DisplayName                     PSChildName
-	        -----------                     -----------
-	        NoSQLBooster for MongoDB 10.1.7 {227bc20d-e19b-5c52-9f1d-31ef30b24843}
+                DisplayName                     PSChildName
+                -----------                     -----------
+                NoSQLBooster for MongoDB 10.1.7 {227bc20d-e19b-5c52-9f1d-31ef30b24843}
             ```
 
     The target GUID-value is in the `PSChildName` column. This will be the value to set for the site's Pillar's `nosql-booster:lookup:pkg:reg_guid` parameter.

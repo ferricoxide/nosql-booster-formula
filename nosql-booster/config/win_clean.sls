@@ -7,7 +7,7 @@
 
 {#- Use double-backslashes to prevent \U and \n escape sequence errors -#}
 {%- set common_key_path = 'C:\\Users\\Default\\AppData\\Roaming' ~
-     '\\NoSQLBooster for MongoDB\\license.key'
+      '\\NoSQLBooster for MongoDB\\license.key'
 %}
 
 NoSQL Booster Desktop Shortcut Removal:

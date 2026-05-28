@@ -7,7 +7,7 @@
 {%- from tplroot ~ "/map.jinja" import mapdata as nosql_booster with context %}
 
 {%- set common_key_path = 'C:\\Users\\Default\\AppData\\Roaming' ~
-     '\\NoSQLBooster for MongoDB\\license.key'
+      '\\NoSQLBooster for MongoDB\\license.key'
 %}
 
 include:
