@@ -8,7 +8,7 @@
 {#- Define paths using double-backslashes and 80-column-safe breaks -#}
 {%- set install_root = nosql_booster.config.install_root %}
 {%- set installer_exe = nosql_booster.pkg.download_save_dir ~ '\\nosqlbooster-setup.exe' %}
-{%- set junction = 'C:\\nosql_uninstall_temp' %}
+{%- set junction = 'C:\\nosql_install_temp' %}
 {%- set reg_key = 'HKEY_USERS\\S-1-5-18\\Software\\Microsoft\\Windows\\' ~
                   'CurrentVersion\\Uninstall\\' ~ nosql_booster.pkg.reg_guid
 %}
