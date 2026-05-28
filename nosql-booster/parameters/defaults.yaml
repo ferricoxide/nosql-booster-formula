@@ -1,14 +1,27 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
-#
-# Set default values.
 ---
 values:
   pkg:
-    name: ''
-    download_uri: ''
+    download_save_dir: ''
     download_sig: ''
+    download_uri: ''
+    download_uri_error: |
+      --------------------------------------------------
+      The vendor URL is subject to change and no
+      fallback mechanism is currently able to be
+      implemented. Therefore, a valid NoSQL Booster
+      download URL *must* be provided via Pillar. If
+      not self-hosting, please check:
+
+        https://nosqlbooster.com/downloads
+
+      For valid download URLs.
+      --------------------------------------------------
+    name: ''
+    reg_guid: ''
   config:
     install_root: ''
+    installed_version: ''
     license_string: ''
 ...

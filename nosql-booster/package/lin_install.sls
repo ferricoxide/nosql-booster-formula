@@ -9,17 +9,7 @@
 NoSQL Booster download URL is missing:
   test.fail_without_changes:
     - comment: |
-        --------------------------------------------------
-        The vendor URL is subject to change and no
-        fallback mechanism is currently able to be
-        implemented. Therefore, a valid NoSQL Booster
-        download URL *must* be provided via Pillar. If not
-        self-hosting, please check:
-
-          https://nosqlbooster.com/downloads
-
-        For valid download URLs.
-        --------------------------------------------------
+{{ nosql_booster.pkg.download_uri_error | indent(8, True) }}
     - name: "CRITICAL: 'nosql_booster:pkg:download_uri' is not defined."
 {%- elif not nosql_booster.config.install_root %}
 NoSQL Booster installation root is missing:
