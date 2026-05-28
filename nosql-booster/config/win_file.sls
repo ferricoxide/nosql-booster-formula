@@ -6,8 +6,23 @@
 {%- set sls_package_install = tplroot ~ '.package.install' %}
 {%- from tplroot ~ "/map.jinja" import mapdata as nosql_booster with context %}
 
+{%- set common_key_path = 'C:\\Users\\Default\\AppData\\Roaming' ~
+     '\\NoSQLBooster for MongoDB\\license.key'
+%}
+
 include:
   - {{ sls_package_install }}
+
+{%- if nosql_booster.config.get('license_string') %}
+Install Pillar-Supplied License-String:
+  file.managed:
+    - contents: '{{ nosql_booster.config.license_string }}'
+    - group: 'root'
+    - makedirs: True
+    - name: '{{ common_key_path }}'
+    - require:
+      - cmd: 'Install NoSQL Booster'
+{%- endif %}
 
 NoSQL Booster Desktop Shortcut:
   file.shortcut:
@@ -15,6 +30,17 @@ NoSQL Booster Desktop Shortcut:
     - name: 'C:\Users\Public\Desktop\NoSQLBooster for MongoDB.lnk'
     - require:
       - cmd: 'Install NoSQL Booster'
+    - target: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
+    - working_dir: '{{ nosql_booster.config.install_root }}'
+
+NoSQL Booster Start Menu Shortcut:
+  file.shortcut:
+    - icon_location: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
+    - makedirs: True
+    - name: 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NoSQLBooster for MongoDB.lnk'
+    - require:
+      - cmd: 'Install NoSQL Booster'
+      - file: 'NoSQL Booster Desktop Shortcut'
     - target: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
     - working_dir: '{{ nosql_booster.config.install_root }}'
 
