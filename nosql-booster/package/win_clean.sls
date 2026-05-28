@@ -7,6 +7,7 @@
 
 {#- Define paths using double-backslashes and 80-column-safe breaks -#}
 {%- set install_root = nosql_booster.config.install_root %}
+{%- set installer_exe = nosql_booster.pkg.download_save_dir ~ '\\nosqlbooster-setup.exe' %}
 {%- set junction = 'C:\\nosql_uninstall_temp' %}
 {%- set reg_key = 'HKEY_USERS\\S-1-5-18\\Software\\Microsoft\\Windows\\' ~
                   'CurrentVersion\\Uninstall\\' ~ nosql_booster.pkg.reg_guid
@@ -15,7 +16,7 @@
 
 Cleanup Uninstallation Junction:
   cmd.run:
-    - name: 'ping -n 5 127.0.0.1 >nul & rmdir {{ junction }}'
+    - name: 'Start-Sleep -Seconds 5; if (Test-Path "{{ junction }}") { rmdir {{ junction }} }'
     - onlyif: 'test-path {{ junction }}'
     - require:
       - cmd: 'Run NoSQL Booster Uninstaller'
@@ -33,13 +34,13 @@ Final Scorched Earth Cleanup:
   file.absent:
     - names:
       - '{{ install_root }}'
-      - '{{ nosql_booster.pkg.download_save_dir }}\\nosqlbooster-setup.exe'
+      - '{{ installer_exe }}'
     - require:
       - cmd: 'Cleanup Uninstallation Junction'
 
 Kill Running NoSQL Booster Instances:
   cmd.run:
-    - name: 'taskkill /F /IM "NoSQLBooster for MongoDB.exe" /T || exit 0'
+    - name: 'taskkill /F /IM "NoSQLBooster for MongoDB.exe" /T; exit 0'
     - shell: powershell
 
 NoSQL Booster Registry Removal:
