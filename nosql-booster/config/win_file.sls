@@ -37,7 +37,6 @@ NoSQL Booster Desktop Shortcut:
 NoSQL Booster Start Menu Shortcut:
   shortcut.present:
     - icon_location: '{{ nosql_booster.config.install_root }}\NoSQLBooster for MongoDB.exe'
-    - makedirs: True
     - name: 'C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NoSQLBooster for MongoDB.lnk'
     - require:
       - cmd: 'Install NoSQL Booster'
