@@ -6,8 +6,8 @@
 {%- set sls_package_install = tplroot ~ '.package.install' %}
 {%- from tplroot ~ "/map.jinja" import mapdata as nosql_booster with context %}
 
-{%- set common_key_path = 'C:\\Users\\Default\\AppData\\Roaming' ~
-      '\\NoSQLBooster for MongoDB\\license.key'
+{%- set common_key_path = 'C:\\Users\\Default\\AppData\\Roaming\\' ~
+      'NoSQLBooster for MongoDB\\license.key'
 %}
 
 include:
@@ -17,11 +17,12 @@ include:
 Install Pillar-Supplied License-String:
   file.managed:
     - contents: '{{ nosql_booster.config.license_string }}'
-    - group: 'root'
+    - group: 'Administrators'
     - makedirs: True
     - name: '{{ common_key_path }}'
     - require:
       - cmd: 'Install NoSQL Booster'
+    - user: 'Administrators'
 {%- endif %}
 
 NoSQL Booster Desktop Shortcut:
